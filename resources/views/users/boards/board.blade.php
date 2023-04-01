@@ -2,7 +2,7 @@
 @section('title', '掲示板')
 
 @section('header')
-            <li><a class=”current” href="{{ route('board.index') }}">掲示板</a></li>
+            <li><a class="current" href="{{ route('board.index') }}">掲示板</a></li>
             <li><a href="{{ route('bookmark.index') }}">ブックマーク</a></li>
             <li><a href="{{ route('user.index') }}">ユーザー</a></li>
 @endsection

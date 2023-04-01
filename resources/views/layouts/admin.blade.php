@@ -45,12 +45,14 @@
     }
     nav.nav ul li a{
         text-decoration: none;
-        color: #333;
+        color: black;
         font-weight: bold;
     }
-    nav.nav ul li.current a{
-        color: #F33135;
+
+    nav.nav ul li a.current{
+        background-color: yellow;
     }
+
     nav.nav ul li a:hover{
         color: #E7DA66;
     }
@@ -83,9 +85,7 @@
 <header>
     <nav class="nav">
         <ul>
-            <li><a href="{{ route('admin.index') }}">ユーザー情報</a></li>
-            <!-- <li><a href=”#”>Contact</a></li> -->
-            <li><a href="{{ route('admin.admin') }}">アドミン</a></li>
+            @yield('header')
         </ul>
     </nav>
 </header>

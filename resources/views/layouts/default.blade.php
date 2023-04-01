@@ -66,10 +66,6 @@
         border-color: grey;
     }
 
-    table td.email {/*table内のtdに対して*/
-        color: grey;
-    }
-
     a.button001 {
         background: #555;
         color: #fff;

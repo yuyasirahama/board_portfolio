@@ -1,6 +1,11 @@
 @extends('layouts.admin')
 @section('title', 'アドミン')
 
+@section('header')
+            <li><a class="current" href="{{ route('admin.index') }}">ユーザー情報</a></li>
+            <li><a  href="{{ route('admin.admin') }}">アドミン</a></li>
+@endsection
+
 @section('content')
     <h1>ユーザー情報</h1>
     {{ $users_reverse->links() }}
