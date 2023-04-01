@@ -20,9 +20,8 @@ class BookmarkController extends Controller
         Paginator::useBootstrap();
         $id = Auth::user()->id;
 
-        $i = new Bookmark();
         //ブックマークテーブルから、ログインユーザーがブックマークしている投稿のidを$bookmarksに入れる
-        $bookmarks = $i->select('post_id')->where('user_id', '=', $id)->get();
+        $bookmarks = Bookmark::select('post_id')->where('user_id', '=', $id)->get();
 
         //コレクション型の$bookmarksの中身を$post_idに入れる
         $post_id = array();

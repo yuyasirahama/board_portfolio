@@ -25,9 +25,6 @@ class BoardController extends Controller
         $posts = new Post();
         $posts_reverse = $posts->orderBy("created_at", "desc")->paginate(20);
 
-        $search_posts=null;
-        $search_cnt=0;
-
         //ブックマーク機能
         $bookmarks = Bookmark::select('post_id')->where('user_id', '=', $id)->get();
         
@@ -35,6 +32,9 @@ class BoardController extends Controller
         foreach($bookmarks as $bookmark){
             array_push($post_id, $bookmark->post_id);
         }
+
+        $search_posts=null;
+        $search_cnt=0;
 
         return view('users.boards.board', [
             'id' => $id,
@@ -91,9 +91,8 @@ class BoardController extends Controller
         $posts_reverse = null;
 
         // 検索フォームで入力された値を取得する
-        $search_cnt = 1;
-        $search_posts = null; //検索されたか判定
         $search = session('search');
+        $search_posts = null;
         $query = Post::query();
         // もし検索フォームにキーワードが入力されたら
         if ($search) {
@@ -114,13 +113,14 @@ class BoardController extends Controller
         }
 
         //ブックマーク機能
-        $i = new Bookmark();
-        $bookmarks = $i->select('post_id')->where('user_id', '=', $id)->get();
-        
+        $bookmarks = Bookmark::select('post_id')->where('user_id', '=', $id)->get();
+
         $post_id = array();
         foreach($bookmarks as $bookmark){
             array_push($post_id, $bookmark->post_id);
         }
+
+        $search_cnt = 1; //検索されたか判定
 
         return view('users.boards.board', [
             'id' => $id,

@@ -22,8 +22,7 @@ class GuestController extends Controller
     {   
         Paginator::useBootstrap();
 
-        $posts = new Post();
-        $posts_reverse = $posts->orderBy("created_at", "desc")->paginate(20);
+        $posts_reverse = Post::orderBy("created_at", "desc")->paginate(20);
 
         //検索結果画面か否か判定
         $search_cnt=0;
@@ -41,9 +40,8 @@ class GuestController extends Controller
         $posts_reverse = null;
 
         // 検索フォームで入力された値を取得する
-        $search_cnt = 1; //検索されたか判定
-        $search_posts = null; //検索結果を入れる
         $search = session('search');
+        $search_posts = null; //検索結果を入れる
         $query = Post::query();
         // もし検索フォームにキーワードが入力されたら
         if ($search) {
@@ -62,6 +60,8 @@ class GuestController extends Controller
             // 上記で取得した$queryをページネートにし、変数$search_postsに代入
             $search_posts = $query->orderBy("created_at", "desc")->paginate(20);
         }
+
+        $search_cnt = 1; //検索されたか判定
         
         return view('guests.board', [
             'posts_reverse' => $posts_reverse,
