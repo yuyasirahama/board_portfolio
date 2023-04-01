@@ -1,6 +1,12 @@
 @extends('layouts.default')
 @section('title', 'ユーザー')
 
+@section('header')
+<li><a href="{{ route('board.index') }}">掲示板</a></li>
+<li><a href="{{ route('bookmark.index') }}">ブックマーク</a></li>
+<li><a class=”current” href="{{ route('user.index') }}">ユーザー</a></li>
+@endsection
+
 @section('content')
     <h1>ユーザー</h1>
     <h2>ようこそ、{{ \Auth::user()->name }}さん</h2>

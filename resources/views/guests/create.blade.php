@@ -1,6 +1,12 @@
 @extends('layouts.guest')
 @section('title', 'ユーザー作成')
 
+@section('header')
+            <li><a href="{{ route('guest.index') }}">掲示板</a></li>
+            <li><a class="current" href="{{ route('user.auth') }}" >ユーザー</a></li>
+            <li><a href="{{ route('admin.loginForm') }}">アドミン</a></li>
+@endsection
+
 @section('content')
     <h1>ユーザー作成</h1>
     @if($errors->any())

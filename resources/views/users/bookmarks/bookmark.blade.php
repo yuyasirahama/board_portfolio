@@ -1,6 +1,12 @@
 @extends('layouts.default')
 @section('title', 'ブックマーク')
 
+@section('header')
+<li><a href="{{ route('board.index') }}">掲示板</a></li>
+<li><a class=”current” href="{{ route('bookmark.index') }}">ブックマーク</a></li>
+<li><a href="{{ route('user.index') }}">ユーザー</a></li>
+@endsection
+
 @section('content')
 <h1>ブックマーク</h1>
     {{ $posts_reverse->links() }}
