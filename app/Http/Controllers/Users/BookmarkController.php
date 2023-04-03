@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Auth;
 use App\Models\Post;
+use App\Models\User;
 use App\Models\Bookmark;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\Paginator;
@@ -63,6 +64,24 @@ class BookmarkController extends Controller
         Bookmark::where('user_id', $user_id)->where('post_id', $the_post_id)->delete();
 
         return to_route('bookmark.index');
+    }
+
+    //個人ページ
+    public function indivisual(Request $request)
+    {   
+        Paginator::useBootstrap();
+
+        $the_user_id = $request->user_id;
+
+        $the_user_name = User::where("id", $the_user_id)->value("name");
+
+        $posts_reverse = Post::where("user_id", $the_user_id)->orderBy("created_at", "desc")->paginate(20);
+
+
+        return view('users.bookmarks.indivisual', [
+            'posts_reverse' => $posts_reverse,
+            'name' => $the_user_name,
+        ]);
     }
 
 }

@@ -74,6 +74,7 @@ Route::middleware('auth')
 Route::get('/bookmark', [BookmarkController::class, 'index'])->name('bookmark.index')->middleware('auth'); //ブックマークページ
 Route::post('/bookmark/destroy', [BookmarkController::class, 'destroy'])->name('bookmark.destroy')->middleware('auth'); //呟きブックマーク削除
 Route::post('/bookmark/bookmarkDestroy', [BookmarkController::class, 'bookmarkDestroy'])->name('bookmark.bookmarkDestroy')->middleware('auth'); //呟きブックマーク登録解除
+Route::post('/bookmark/indivisual', [BookmarkController::class, 'indivisual'])->name('bookmark.indivisual')->middleware('auth'); //ブックマーク個人ページ
 
 Route::get('/user', [UserController::class, 'index'])->name('user.index')->middleware('auth'); //ユーザーページ
 Route::post('/user/update', [UserController::class, 'update'])->name('user.update')->middleware('auth'); //ユーザーページ

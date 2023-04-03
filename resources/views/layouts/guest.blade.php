@@ -17,6 +17,11 @@
         display: inline-block;
         min-width: 20px;
     }
+    
+    nav ul li.active{
+        background-color: yellow;
+    }
+
     nav ul li a{
         text-decoration: none;
         color: #333;

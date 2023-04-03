@@ -20,7 +20,24 @@
         <table>
             <tr>
                 <td>{{ $post->id }}</td>
-                <td class="name">{{ $posted_user->name }}</td>
+                <td class="name">
+                    <form action="{{ route('bookmark.indivisual') }}" method="post">
+                        @csrf
+                        <input type="hidden" name="user_id" value="{{ $post->user_id }}">
+                        <button type="submit" style="
+                                                        background-color: transparent;
+                                                        border: none;
+                                                        cursor: pointer;
+                                                        outline: none;
+                                                        padding: 0;
+                                                        appearance: none;
+                                                        font-size: 18px;
+                                                        "
+                                                        >
+                                                        {{ $posted_user->name }}
+                                                    </button>
+                    </form>
+                </td>
                 <td>{{ $post->created_at }}</td>
                 <td>
                     <form action="{{ route('bookmark.bookmarkDestroy') }}" method="post">

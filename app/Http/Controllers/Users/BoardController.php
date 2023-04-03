@@ -210,7 +210,7 @@ class BoardController extends Controller
         return to_route('board.index');
     }
 
-    //ゲスト掲示板
+    //個人ページ
     public function indivisual(Request $request)
     {   
         Paginator::useBootstrap();
@@ -231,7 +231,7 @@ class BoardController extends Controller
         ]);
     }
 
-    //ゲスト掲示板
+    //検索後個人ページ
     public function searchIndivisual(Request $request)
     {   
         Paginator::useBootstrap();

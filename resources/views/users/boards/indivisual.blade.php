@@ -12,7 +12,7 @@
     @if($search_cnt == 0)
         <h1>掲示板</h1>
         <h2>{{ $name }}さんの投稿一覧</h2>
-        <a href="{{ route('board.index') }}" class="button001">戻る</a>
+        <button type="button" onClick="history.back()">戻る</button>
 
         {{ $posts_reverse->links() }}
         @if (count($posts_reverse) >0)
@@ -32,7 +32,6 @@
             <table>
                 <tr>
                     <td>{{ $post->id }}</td>
-                    <td class="name">{{ $posted_user->name }}</td>
                     <td>{{ $post->created_at }}</td>
                 </tr>
             </table>
@@ -58,7 +57,7 @@
     @if($search_cnt == 1)
         <h1>掲示板</h1>
         <h2>{{ $name }}さんの投稿一覧</h2>
-        <a href="{{ route('board.search') }}" class="button001">戻る</a>
+        <button type="button" onClick="history.back()">戻る</button>
 
         {{ $posts_reverse->links() }}
         @if (count($posts_reverse) >0)
@@ -78,7 +77,6 @@
             <table>
                 <tr>
                     <td>{{ $post->id }}</td>
-                    <td class="name">{{ $posted_user->name }}</td>
                     <td>{{ $post->created_at }}</td>
                 </tr>
             </table>
