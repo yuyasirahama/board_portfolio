@@ -2,6 +2,7 @@
 
 
 use App\Http\Controllers\Guests\GuestController;
+use App\Http\Controllers\Guests\GuestIndivisualController;
 use App\Http\Controllers\Users\BoardController;
 use App\Http\Controllers\Users\BookmarkController;
 use App\Http\Controllers\Users\UserController;
@@ -40,6 +41,9 @@ Route::middleware('guest')
     Route::post('/user/store', 'store')->name('store'); //ユーザー作成処理
 });
 
+Route::post('/guest/indivisual', [GuestIndivisualController::class, 'index'])->name('guest.indivisual')->middleware('guest'); //ゲスト個人ページ
+Route::post('/guest/search/indivisual', [GuestIndivisualController::class, 'search'])->name('guest.searchIndivisual')->middleware('guest'); //検索後ゲスト個人ページ
+
 Route::get('/user/auth', [AuthController::class, 'UserLoginForm'])->name('user.auth')->middleware('guest'); //ユーザーログインページ
 Route::post('/user/login', [AuthController::class, 'UserLogin'])->name('user.login')->middleware('guest'); //ユーザーログイン
 Route::post('/user/logout', [AuthController::class, 'UserLogout'])->name('user.logout')->middleware('auth'); //ユーザーログアウト
@@ -54,12 +58,17 @@ Route::middleware('auth')
     Route::post('/store/image', 'storeImage')->name('storeImage'); //画像投稿
     Route::post('/session', 'session')->name('session'); //検索ワードセッション保存
     Route::get('/search', 'search')->name('search'); //検索結果表示
+
     Route::post('/destroy', 'destroy')->name('destroy'); //投稿削除
-    Route::post('/search/destroy', 'searchDestroy')->name('searchDestroy'); //検索後投稿削除
     Route::post('/bookmark', 'bookmark')->name('bookmark'); //ブックマーク登録
     Route::post('/bookmark/destroy', 'bookmarkDestroy')->name('bookmarkDestroy'); //ブックマーク登録解除
+
+    Route::post('/search/destroy', 'searchDestroy')->name('searchDestroy'); //検索後投稿削除
     Route::post('/search/bookmark', 'searchBookmark')->name('searchBookmark'); //検索後ブックマーク登録
     Route::post('/search/bookmark/destroy', 'searchBookmarkDestroy')->name('searchBookmarkDestroy'); //検索後ブックマーク登録解除
+
+    Route::post('/indivisual', 'indivisual')->name('indivisual'); //個人ページ
+    Route::post('/search/indivisual', 'searchIndivisual')->name('searchIndivisual'); //検索後個人ページ
 });
 
 Route::get('/bookmark', [BookmarkController::class, 'index'])->name('bookmark.index')->middleware('auth'); //ブックマークページ

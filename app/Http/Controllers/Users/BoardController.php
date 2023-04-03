@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreTextRequest;
 use App\Http\Requests\StoreImageRequest;
 use App\Models\Post;
+use App\Models\User;
 use App\Models\Bookmark;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -22,8 +23,7 @@ class BoardController extends Controller
         Paginator::useBootstrap();
         $id = Auth::user()->id;
 
-        $posts = new Post();
-        $posts_reverse = $posts->orderBy("created_at", "desc")->paginate(20);
+        $posts_reverse = Post::orderBy("created_at", "desc")->paginate(20);
 
         //ブックマーク機能
         $bookmarks = Bookmark::select('post_id')->where('user_id', '=', $id)->get();
@@ -92,7 +92,7 @@ class BoardController extends Controller
 
         // 検索フォームで入力された値を取得する
         $search = session('search');
-        $search_posts = null;
+        $search_posts = null; //検索結果を入れる
         $query = Post::query();
         // もし検索フォームにキーワードが入力されたら
         if ($search) {
@@ -208,5 +208,47 @@ class BoardController extends Controller
 
         Post::create($post);
         return to_route('board.index');
+    }
+
+    //ゲスト掲示板
+    public function indivisual(Request $request)
+    {   
+        Paginator::useBootstrap();
+
+        $the_user_id = $request->user_id;
+
+        $the_user_name = User::where("id", $the_user_id)->value("name");
+
+        $posts_reverse = Post::where("user_id", $the_user_id)->orderBy("created_at", "desc")->paginate(20);
+
+        //検索結果画面に戻す必要があるか判定
+        $search_cnt=0;
+
+        return view('users.boards.indivisual', [
+            'posts_reverse' => $posts_reverse,
+            'name' => $the_user_name,
+            'search_cnt' => $search_cnt,
+        ]);
+    }
+
+    //ゲスト掲示板
+    public function searchIndivisual(Request $request)
+    {   
+        Paginator::useBootstrap();
+
+        $the_user_id = $request->user_id;
+
+        $the_user_name = User::where("id", $the_user_id)->value("name");
+
+        $posts_reverse = Post::where("user_id", $the_user_id)->orderBy("created_at", "desc")->paginate(20);
+
+        //検索結果画面に戻す必要があるか判定
+        $search_cnt=1;
+
+        return view('users.boards.indivisual', [
+            'posts_reverse' => $posts_reverse,
+            'name' => $the_user_name,
+            'search_cnt' => $search_cnt,
+        ]);
     }
 }

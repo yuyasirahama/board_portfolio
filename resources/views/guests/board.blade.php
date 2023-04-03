@@ -23,6 +23,13 @@
         </form>
 
         {{ $posts_reverse->links() }}
+        @if (count($posts_reverse) >0)
+        <p>全{{ $posts_reverse->total() }}件中 
+            {{  ($posts_reverse->currentPage() -1) * $posts_reverse->perPage() + 1}} - 
+            {{ (($posts_reverse->currentPage() -1) * $posts_reverse->perPage() + 1) + (count($posts_reverse) -1)  }}件の投稿が表示されています。</p>
+        @else
+        <p>投稿がありません</p>
+        @endif 
 
         @foreach($posts_reverse as $post)
         @php
@@ -33,7 +40,24 @@
             <table>
                 <tr>
                     <td>{{ $post->id }}</td>
-                    <td class="name">{{ $posted_user->name }}</td>
+                    <td class="name">
+                        <form action="{{ route('guest.indivisual') }}" method="post">
+                            @csrf
+                            <input type="hidden" name="user_id" value="{{ $post->user_id }}">
+                            <button type="submit" style="
+                                                            background-color: transparent;
+                                                            border: none;
+                                                            cursor: pointer;
+                                                            outline: none;
+                                                            padding: 0;
+                                                            appearance: none;
+                                                            font-size: 18px;
+                                                            "
+                                                            >
+                                                            {{ $posted_user->name }}
+                                                        </button>
+                        </form>
+                    </td>
                     <td>{{ $post->created_at }}</td>
                 </tr>
             </table>
@@ -61,6 +85,13 @@
         <div>「{{ Session::get('search') }}」を含む投稿</div>
 
         {{ $search_posts->links() }}
+        @if (count($search_posts) >0)
+        <p>全{{ $search_posts->total() }}件中 
+            {{  ($search_posts->currentPage() -1) * $search_posts->perPage() + 1}} - 
+            {{ (($search_posts->currentPage() -1) * $search_posts->perPage() + 1) + (count($search_posts) -1)  }}件の投稿が表示されています。</p>
+        @else
+        <p>投稿がありません</p>
+        @endif 
 
         @foreach($search_posts as $post)
         @php
@@ -71,7 +102,24 @@
             <table>
                 <tr>
                     <td>{{ $post->id }}</td>
-                    <td class="name">{{ $posted_user->name }}</td>
+                    <td class="name">
+                        <form action="{{ route('guest.searchIndivisual') }}" method="post">
+                            @csrf
+                            <input type="hidden" name="user_id" value="{{ $post->user_id }}">
+                            <button type="submit" style="
+                                                            background-color: transparent;
+                                                            border: none;
+                                                            cursor: pointer;
+                                                            outline: none;
+                                                            padding: 0;
+                                                            appearance: none;
+                                                            font-size: 18px;
+                                                            "
+                                                            >
+                                                            {{ $posted_user->name }}
+                                                        </button>
+                        </form>
+                    </td>
                     <td>{{ $post->created_at }}</td>
                 </tr>
             </table>
