@@ -11,10 +11,8 @@
     <!-- 未検索時 -->
     @if($search_cnt == 0)
         <h1>掲示板</h1>
-        <div>{{ $name }}さんの投稿一覧</div>
-
         <button type="button" onClick="history.back()">戻る</button>
-
+        <h3>{{ $name }}さんの投稿一覧</h3>
         {{ $posts_reverse->links() }}
         @if (count($posts_reverse) >0)
         <p>全{{ $posts_reverse->total() }}件中 
@@ -57,9 +55,8 @@
     <!-- 検索時 -->
     @if($search_cnt == 1)
         <h1>掲示板</h1>
-        <div>{{ $name }}さんの投稿一覧</div>
-
         <button type="button" onClick="history.back()">戻る</button>
+        <h3>{{ $name }}さんの投稿一覧</h3>
 
         {{ $posts_reverse->links() }}
         @if (count($posts_reverse) >0)

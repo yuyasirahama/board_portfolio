@@ -44,6 +44,13 @@ Route::middleware('guest')
 Route::post('/guest/indivisual', [GuestIndivisualController::class, 'index'])->name('guest.indivisual')->middleware('guest'); //ゲスト個人ページ
 Route::post('/guest/search/indivisual', [GuestIndivisualController::class, 'search'])->name('guest.searchIndivisual')->middleware('guest'); //検索後ゲスト個人ページ
 
+
+
+
+
+
+
+
 Route::get('/user/auth', [AuthController::class, 'UserLoginForm'])->name('user.auth')->middleware('guest'); //ユーザーログインページ
 Route::post('/user/login', [AuthController::class, 'UserLogin'])->name('user.login')->middleware('guest'); //ユーザーログイン
 Route::post('/user/logout', [AuthController::class, 'UserLogout'])->name('user.logout')->middleware('auth'); //ユーザーログアウト
@@ -78,6 +85,12 @@ Route::post('/bookmark/indivisual', [BookmarkController::class, 'indivisual'])->
 
 Route::get('/user', [UserController::class, 'index'])->name('user.index')->middleware('auth'); //ユーザーページ
 Route::post('/user/update', [UserController::class, 'update'])->name('user.update')->middleware('auth'); //ユーザーページ
+
+
+
+
+
+
 
 
 Route::get('/admin/auth', [AdminController::class, 'LoginForm'])->name('admin.loginForm')->middleware('guest:admin'); //管理者ログインページ

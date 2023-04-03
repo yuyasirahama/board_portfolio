@@ -118,8 +118,8 @@
 
     <!-- 検索時 -->
     @if($search_cnt == 1)
-        <button type="button" onClick="history.back()">戻る</button>
-        <div>「{{ Session::get('search') }}」を含む投稿</div>
+        <a href="{{ route('board.index') }}" class="button001">戻る</a>
+        <h3>「{{ Session::get('search') }}」を含む投稿</h3>
         {{ $search_posts->links() }}
         @foreach($search_posts as $post)
         @php

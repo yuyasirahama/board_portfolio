@@ -82,7 +82,7 @@
     <!-- 検索時 -->
     @if($search_cnt == 1)
         <button type="button" onClick="history.back()">戻る</button>
-        <div>「{{ Session::get('search') }}」を含む投稿</div>
+        <h3>「{{ Session::get('search') }}」を含む投稿</h3>
 
         {{ $search_posts->links() }}
         @if (count($search_posts) >0)
