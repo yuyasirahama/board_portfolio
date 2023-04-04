@@ -65,13 +65,22 @@ class BookmarkController extends Controller
 
         return to_route('bookmark.index');
     }
+    
+    //個人user_idセッション保存
+    public function indivisualSession(Request $request)
+    {   
+        $user_id = $request->user_id;
+        session(['user_id' => $user_id]);
+
+        return redirect()->route('bookmark.indivisual');
+    }
 
     //個人ページ
-    public function indivisual(Request $request)
+    public function indivisual()
     {   
         Paginator::useBootstrap();
 
-        $the_user_id = $request->user_id;
+        $the_user_id = session('user_id');
 
         $the_user_name = User::where("id", $the_user_id)->value("name");
 

@@ -21,7 +21,24 @@
                     </form>
                 </td>
                 <td>{{ $user->id }}</td>
-                <td>{{ $user->name }}</td>
+                <td class="name">
+                    <form action="{{ route('admin.indivisualSession') }}" method="post">
+                        @csrf
+                        <input type="hidden" name="user_id" value="{{ $user->id }}">
+                        <button type="submit" style="
+                                                        background-color: transparent;
+                                                        border: none;
+                                                        cursor: pointer;
+                                                        outline: none;
+                                                        padding: 0;
+                                                        appearance: none;
+                                                        font-size: 18px;
+                                                        "
+                                                        >
+                                                        {{ $user->name }}
+                                                    </button>
+                    </form>
+                </td>
                 <td>{{ $user->email }}</td>
                 <td>{{ $user->created_at }}</td>
             </tr>

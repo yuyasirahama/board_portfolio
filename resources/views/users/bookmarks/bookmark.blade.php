@@ -21,7 +21,7 @@
             <tr>
                 <td>{{ $post->id }}</td>
                 <td class="name">
-                    <form action="{{ route('bookmark.indivisual') }}" method="post">
+                    <form action="{{ route('bookmark.indivisualSession') }}" method="post">
                         @csrf
                         <input type="hidden" name="user_id" value="{{ $post->user_id }}">
                         <button type="submit" style="

@@ -10,13 +10,22 @@ use App\Models\Post;
 use App\Models\User;
 
 class GuestIndivisualController extends Controller
-{
-    //ゲスト掲示板
+{   
+    //個人user_idセッション保存
+    public function session(Request $request)
+    {   
+        $user_id = $request->user_id;
+        session(['user_id' => $user_id]);
+
+        return redirect()->route('guest.indivisual');
+    }
+
+    //ゲスト個人ページ
     public function index(Request $request)
     {   
         Paginator::useBootstrap();
 
-        $the_user_id = $request->user_id;
+        $the_user_id = session('user_id');
 
         $the_user_name = User::where("id", $the_user_id)->value("name");
 
@@ -31,14 +40,22 @@ class GuestIndivisualController extends Controller
             'search_cnt' => $search_cnt,
         ]);
     }
+   
+    //検索後個人user_idセッション保存
+    public function searchSession(Request $request)
+    {   
+        $user_id = $request->user_id;
+        session(['user_id' => $user_id]);
 
+        return redirect()->route('guest.searchIndivisual');
+    }
 
-    //ゲスト掲示板
+    //検索後ゲスト個人ページ
     public function search(Request $request)
     {   
         Paginator::useBootstrap();
 
-        $the_user_id = $request->user_id;
+        $the_user_id = session('user_id');
 
         $the_user_name = User::where("id", $the_user_id)->value("name");
 

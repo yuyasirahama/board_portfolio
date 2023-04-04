@@ -16,7 +16,7 @@
     @endif
     <!-- 未検索時 -->
     @if($search_cnt == 0)
-        <form action="{{ route('guest.session') }}" method="post">
+        <form action="{{ route('guest.session') }}" method="get">
             @csrf
             <input type="text" name="text">
             <button type="submit">検索</button>
@@ -41,7 +41,7 @@
                 <tr>
                     <td>{{ $post->id }}</td>
                     <td class="name">
-                        <form action="{{ route('guest.indivisual') }}" method="post">
+                        <form action="{{ route('guest.indivisualSession') }}" method="post">
                             @csrf
                             <input type="hidden" name="user_id" value="{{ $post->user_id }}">
                             <button type="submit" style="
@@ -81,7 +81,7 @@
     
     <!-- 検索時 -->
     @if($search_cnt == 1)
-        <button type="button" onClick="history.back()">戻る</button>
+        <a href="{{ route('guest.index') }}" class="button001">戻る</a>
         <h3>「{{ Session::get('search') }}」を含む投稿</h3>
 
         {{ $search_posts->links() }}
@@ -103,7 +103,7 @@
                 <tr>
                     <td>{{ $post->id }}</td>
                     <td class="name">
-                        <form action="{{ route('guest.searchIndivisual') }}" method="post">
+                        <form action="{{ route('guest.searchSession') }}" method="post">
                             @csrf
                             <input type="hidden" name="user_id" value="{{ $post->user_id }}">
                             <button type="submit" style="

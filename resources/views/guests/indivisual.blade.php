@@ -11,7 +11,7 @@
     <!-- 未検索時 -->
     @if($search_cnt == 0)
         <h1>掲示板</h1>
-        <button type="button" onClick="history.back()">戻る</button>
+        <a href="{{ route('guest.index') }}" class="button001">戻る</a>
         <h3>{{ $name }}さんの投稿一覧</h3>
         {{ $posts_reverse->links() }}
         @if (count($posts_reverse) >0)
@@ -55,7 +55,7 @@
     <!-- 検索時 -->
     @if($search_cnt == 1)
         <h1>掲示板</h1>
-        <button type="button" onClick="history.back()">戻る</button>
+        <a href="{{ route('guest.search') }}" class="button001">戻る</a>
         <h3>{{ $name }}さんの投稿一覧</h3>
 
         {{ $posts_reverse->links() }}

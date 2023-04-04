@@ -16,7 +16,7 @@
                     <div style="color:red;">{{ $error }}</div>
                     @endforeach
         @endif
-        <form action="{{ route('board.session') }}" method="post">
+        <form action="{{ route('board.session') }}" method="get">
             @csrf
             <input type="text" name="text">
             <button type="submit">検索</button>
@@ -54,7 +54,7 @@
                 <tr>
                     <td>{{ $post->id }}</td>
                     <td class="name">
-                        <form action="{{ route('board.indivisual') }}" method="post">
+                        <form action="{{ route('board.indivisualSession') }}" method="post">
                             @csrf
                             <input type="hidden" name="user_id" value="{{ $post->user_id }}">
                             <button type="submit" style="
@@ -140,7 +140,7 @@
                 <tr>
                     <td>{{ $post->id }}</td>
                     <td class="name">
-                        <form action="{{ route('board.searchIndivisual') }}" method="post">
+                        <form action="{{ route('board.searchIndivisualSession') }}" method="post">
                             @csrf
                             <input type="hidden" name="user_id" value="{{ $post->user_id }}">
                             <button type="submit" style="

@@ -209,13 +209,22 @@ class BoardController extends Controller
         Post::create($post);
         return to_route('board.index');
     }
+    
+    //個人user_idセッション保存
+    public function indivisualSession(Request $request)
+    {   
+        $user_id = $request->user_id;
+        session(['user_id' => $user_id]);
+
+        return redirect()->route('board.indivisual');
+    }
 
     //個人ページ
     public function indivisual(Request $request)
     {   
         Paginator::useBootstrap();
 
-        $the_user_id = $request->user_id;
+        $the_user_id = session('user_id');
 
         $the_user_name = User::where("id", $the_user_id)->value("name");
 
@@ -230,13 +239,22 @@ class BoardController extends Controller
             'search_cnt' => $search_cnt,
         ]);
     }
+   
+    //検索後個人user_idセッション保存
+    public function searchIndivisualSession(Request $request)
+    {   
+        $user_id = $request->user_id;
+        session(['user_id' => $user_id]);
+
+        return redirect()->route('board.searchIndivisual');
+    }
 
     //検索後個人ページ
     public function searchIndivisual(Request $request)
     {   
         Paginator::useBootstrap();
 
-        $the_user_id = $request->user_id;
+        $the_user_id = session('user_id');
 
         $the_user_name = User::where("id", $the_user_id)->value("name");
 

@@ -3,6 +3,7 @@
 
 use App\Http\Controllers\Guests\GuestController;
 use App\Http\Controllers\Guests\GuestIndivisualController;
+use App\Http\Controllers\Admins\AdminIndivisualController;
 use App\Http\Controllers\Users\BoardController;
 use App\Http\Controllers\Users\BookmarkController;
 use App\Http\Controllers\Users\UserController;
@@ -35,14 +36,16 @@ Route::middleware('guest')
 ->name('guest.')
 ->group(function() {
     Route::get('/', 'index')->name('index'); //ゲスト掲示板
-    Route::post('/session', 'session')->name('session'); //検索ワードセッション保存
+    Route::get('/session', 'session')->name('session'); //検索ワードセッション保存
     Route::get('/search', 'search')->name('search'); //ゲスト掲示板検索結果表示
     Route::get('/user/create', 'create')->name('create'); //ユーザー作成ページ
     Route::post('/user/store', 'store')->name('store'); //ユーザー作成処理
 });
 
-Route::post('/guest/indivisual', [GuestIndivisualController::class, 'index'])->name('guest.indivisual')->middleware('guest'); //ゲスト個人ページ
-Route::post('/guest/search/indivisual', [GuestIndivisualController::class, 'search'])->name('guest.searchIndivisual')->middleware('guest'); //検索後ゲスト個人ページ
+Route::post('/guest/indivisual/session', [GuestIndivisualController::class, 'session'])->name('guest.indivisualSession')->middleware('guest'); //ゲスト個人ページ用user_idセッション保存ページ
+Route::get('/guest/indivisual', [GuestIndivisualController::class, 'index'])->name('guest.indivisual')->middleware('guest'); //ゲスト個人ページ
+Route::post('/guest/search/session', [GuestIndivisualController::class, 'searchSession'])->name('guest.searchSession')->middleware('guest'); //ゲスト検索後個人ページ用user_idセッション保存ページ
+Route::get('/guest/search/indivisual', [GuestIndivisualController::class, 'search'])->name('guest.searchIndivisual')->middleware('guest'); //検索後ゲスト個人ページ
 
 
 
@@ -63,7 +66,7 @@ Route::middleware('auth')
     Route::get('/', 'index')->name('index'); //掲示板
     Route::post('/store/text', 'storeText')->name('storeText'); //テキスト投稿
     Route::post('/store/image', 'storeImage')->name('storeImage'); //画像投稿
-    Route::post('/session', 'session')->name('session'); //検索ワードセッション保存
+    Route::get('/session', 'session')->name('session'); //検索ワードセッション保存
     Route::get('/search', 'search')->name('search'); //検索結果表示
 
     Route::post('/destroy', 'destroy')->name('destroy'); //投稿削除
@@ -74,14 +77,18 @@ Route::middleware('auth')
     Route::post('/search/bookmark', 'searchBookmark')->name('searchBookmark'); //検索後ブックマーク登録
     Route::post('/search/bookmark/destroy', 'searchBookmarkDestroy')->name('searchBookmarkDestroy'); //検索後ブックマーク登録解除
 
-    Route::post('/indivisual', 'indivisual')->name('indivisual'); //個人ページ
-    Route::post('/search/indivisual', 'searchIndivisual')->name('searchIndivisual'); //検索後個人ページ
+    Route::post('/indivisual/session', 'indivisualSession')->name('indivisualSession'); //個人user_idセッション保存
+    Route::get('/indivisual', 'indivisual')->name('indivisual'); //個人ページ
+    Route::post('/search/indivisual/session', 'searchIndivisualSession')->name('searchIndivisualSession'); //検索後個人ページ
+    Route::get('/search/indivisual', 'searchIndivisual')->name('searchIndivisual'); //検索後個人ページ
 });
 
 Route::get('/bookmark', [BookmarkController::class, 'index'])->name('bookmark.index')->middleware('auth'); //ブックマークページ
 Route::post('/bookmark/destroy', [BookmarkController::class, 'destroy'])->name('bookmark.destroy')->middleware('auth'); //呟きブックマーク削除
 Route::post('/bookmark/bookmarkDestroy', [BookmarkController::class, 'bookmarkDestroy'])->name('bookmark.bookmarkDestroy')->middleware('auth'); //呟きブックマーク登録解除
-Route::post('/bookmark/indivisual', [BookmarkController::class, 'indivisual'])->name('bookmark.indivisual')->middleware('auth'); //ブックマーク個人ページ
+
+Route::post('/bookmark/indivisual/session', [BookmarkController::class, 'indivisualSession'])->name('bookmark.indivisualSession')->middleware('auth'); //ブックマーク個人user_idセッション保存
+Route::get('/bookmark/indivisual', [BookmarkController::class, 'indivisual'])->name('bookmark.indivisual')->middleware('auth'); //ブックマーク個人ページ
 
 Route::get('/user', [UserController::class, 'index'])->name('user.index')->middleware('auth'); //ユーザーページ
 Route::post('/user/update', [UserController::class, 'update'])->name('user.update')->middleware('auth'); //ユーザーページ
@@ -101,8 +108,12 @@ Route::post('/admin/store', [AdminController::class, 'store'])->name('admin.stor
 Route::get('/admin/admin', [AdminController::class, 'index'])->name('admin.admin')->middleware('auth.admins:admin'); //管理者ページ
 Route::post('/admin/logout', [RegisterController::class, 'AdminLogout'])->name('admin.logout')->middleware('auth.admins:admin'); //管理者ログアウト
 
-Route::get('/admin/user', [AdminUserController::class, 'index'])->name('admin.index')->middleware('auth.admins:admin'); //ユーザー管理ページ
-Route::post('/admin/delete', [AdminUserController::class, 'delete'])->name('admin.delete')->middleware('auth.admins:admin'); //ユーザー削除処理
+Route::get('/admin/user', [AdminUserController::class, 'index'])->name('admin.index')->middleware('auth.admins:admin'); //管理者ユーザー管理ページ
+Route::post('/admin/delete', [AdminUserController::class, 'delete'])->name('admin.delete')->middleware('auth.admins:admin'); //管理者ユーザー削除処理
+
+Route::post('/admin/user/indivisual/session', [AdminIndivisualController::class, 'session'])->name('admin.indivisualSession')->middleware('auth.admins:admin'); //管理者ユーザー個人ページ用user_idセッション保存ページ
+Route::get('/admin/user/indivisual', [AdminIndivisualController::class, 'index'])->name('admin.indivisual')->middleware('auth.admins:admin'); //管理者ユーザー個人ページ
+Route::post('/admin/user/indivisual/destroy', [AdminIndivisualController::class, 'destroy'])->name('admin.indivisualDestroy')->middleware('auth.admins:admin'); //管理者ユーザー個人ページ
 
 
 

@@ -1,17 +1,15 @@
 @extends('layouts.default')
-@section('title', 'ブックマーク')
+@section('title', 'ユーザー情報')
 
 @section('header')
-            <li><a href="{{ route('board.index') }}">掲示板</a></li>
-            <li><a class="current" href="{{ route('bookmark.index') }}">ブックマーク</a></li>
-            <li><a href="{{ route('user.index') }}">ユーザー</a></li>
+            <li><a class="current" href="{{ route('admin.index') }}">ユーザー情報</a></li>
+            <li><a href="{{ route('admin.admin') }}">アドミン</a></li>
 @endsection
 
 @section('content')
-    <h1>ブックマーク</h1>
-    <h2>{{ $name }}さんの投稿一覧</h2>
-        <a href="{{ route('bookmark.index') }}" class="button001">戻る</a>
-
+    <h1>ユーザー情報</h1>
+        <a href="{{ route('admin.index') }}" class="button001">戻る</a>
+    <h3>{{ $name }}さんの投稿一覧</h3>
     {{ $posts_reverse->links() }}
     @if (count($posts_reverse) >0)
     <p>全{{ $posts_reverse->total() }}件中 
@@ -31,6 +29,13 @@
             <tr>
                 <td>{{ $post->id }}</td>
                 <td>{{ $post->created_at }}</td>
+                <td>
+                    <form action="{{ route('admin.indivisualDestroy') }}" method="post">
+                        @csrf
+                        <input type="hidden" name="post_id" value="{{ $post->id }}">
+                        <button type="submit">削除</button>
+                    </form>
+                </td>
             </tr>
         </table>
         <table>
