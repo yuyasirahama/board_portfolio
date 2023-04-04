@@ -16,6 +16,7 @@
         list-style: none;
         display: inline-block;
         min-width: 20px;
+        background-color: silver;
     }
     
     nav ul li.active{
@@ -25,6 +26,9 @@
     nav ul li a{
         text-decoration: none;
         color: #333;
+        display: block;
+        height: 100%;
+        width: 100%;
     }
     nav ul li.current a{
         color: #F33135;
@@ -52,6 +56,9 @@
         text-decoration: none;
         color: black;
         font-weight: bold;
+        display: block;
+        height: 100%;
+        width: 100%;
     }
 
     nav.nav ul li a.current{

@@ -1,4 +1,4 @@
-@extends('layouts.guest')
+@extends('layouts.default')
 @section('title', '掲示板')
 
 @section('header')

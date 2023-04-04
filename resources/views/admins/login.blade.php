@@ -1,4 +1,4 @@
-@extends('layouts.guest')
+@extends('layouts.default')
 @section('title', '管理者ログイン')
 
 @section('header')

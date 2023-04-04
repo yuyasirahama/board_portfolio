@@ -120,7 +120,16 @@
     @if($search_cnt == 1)
         <a href="{{ route('board.index') }}" class="button001">戻る</a>
         <h3>「{{ Session::get('search') }}」を含む投稿</h3>
+
         {{ $search_posts->links() }}
+        @if (count($search_posts) >0)
+        <p>全{{ $search_posts->total() }}件中 
+            {{  ($search_posts->currentPage() -1) * $search_posts->perPage() + 1}} - 
+            {{ (($search_posts->currentPage() -1) * $search_posts->perPage() + 1) + (count($search_posts) -1)  }}件の投稿が表示されています。</p>
+        @else
+        <p>投稿がありません</p>
+        @endif
+        
         @foreach($search_posts as $post)
         @php
             $posted_user_id = $post->user_id;

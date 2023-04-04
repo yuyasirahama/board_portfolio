@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.default')
 @section('title', 'アドミン')
 
 @section('header')

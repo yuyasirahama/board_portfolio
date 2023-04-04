@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.default')
 @section('title', '管理者ユーザー作成')
 
 @section('content')
