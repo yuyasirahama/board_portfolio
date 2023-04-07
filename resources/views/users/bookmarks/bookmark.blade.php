@@ -10,6 +10,15 @@
 @section('content')
 <h1>ブックマーク</h1>
     {{ $posts_reverse->links() }}
+
+    @if (count($posts_reverse) >0)
+    <p>全{{ $posts_reverse->total() }}件中 
+        {{  ($posts_reverse->currentPage() -1) * $posts_reverse->perPage() + 1}} - 
+        {{ (($posts_reverse->currentPage() -1) * $posts_reverse->perPage() + 1) + (count($posts_reverse) -1)  }}件の投稿が表示されています。</p>
+    @else
+    <p>投稿がありません</p>
+    @endif
+
     @foreach($posts_reverse as $post)
     @php
         $posted_user_id = $post->user_id;
