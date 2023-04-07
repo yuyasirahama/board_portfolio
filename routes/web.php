@@ -74,7 +74,7 @@ Route::middleware('auth')
 
     Route::post('/indivisual/session', 'indivisualSession')->name('indivisualSession'); //個人user_idセッション保存
     Route::get('/indivisual', 'indivisual')->name('indivisual'); //個人ページ
-    Route::post('/search/indivisual/session', 'searchIndivisualSession')->name('searchIndivisualSession'); //検索後個人ページ
+    Route::post('/search/indivisual/session', 'searchIndivisualSession')->name('searchIndivisualSession'); //検索後個人ページセッション保存
     Route::get('/search/indivisual', 'searchIndivisual')->name('searchIndivisual'); //検索後個人ページ
 });
 
@@ -88,7 +88,7 @@ Route::get('/bookmark/indivisual', [BookmarkController::class, 'indivisual'])->n
 
 //ユーザーログイン時ユーザータブ
 Route::get('/user', [UserController::class, 'index'])->name('user.index')->middleware('auth'); //ユーザーページ
-Route::post('/user/update', [UserController::class, 'update'])->name('user.update')->middleware('auth'); //ユーザーページ
+Route::post('/user/update', [UserController::class, 'update'])->name('user.update')->middleware('auth'); //ユーザー名変更
 
 
 
